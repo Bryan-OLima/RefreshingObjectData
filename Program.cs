@@ -6,7 +6,6 @@ namespace Ex032
     {
         static void Main(string[] args)
         {
-            //pedir numero da conta
             Console.Write("Entre o número da conta: ");
             int conta = int.Parse(Console.ReadLine());
 
