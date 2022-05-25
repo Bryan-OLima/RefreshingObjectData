@@ -6,64 +6,55 @@ namespace Ex032
     {
         static void Main(string[] args)
         {
-            Console.Write("Entre o número da conta: ");
-            int conta = int.Parse(Console.ReadLine());
+            Console.WriteLine("Bem vindo ao sistema de Banco NOSSO BANCO!");
+            Console.WriteLine();
+            Console.Write("Por favor, digite o número da conta: ");
+            int numeroConta = int.Parse(Console.ReadLine());
 
-            Console.Write("Entre com o títular da conta: ");
+            Console.Write("Entre com o nome do títular da conta: ");
             string nome = Console.ReadLine();
+            Console.WriteLine();
 
-            Console.WriteLine("Haverá um depósito inicial?");
-            Console.Write("(S/N): ");
-            string depoRequest = Console.ReadLine().ToLower();
-           
-            Product pessoa = new Product();
-            pessoa.AdicionarConta(conta);
-            pessoa.AdicionarNome(nome);
+            Cliente cliente = new(numeroConta, nome);
 
-            string resposta = "Dados da conta atualizados:";
-            double deposito; 
-            if (depoRequest == "s")
+            Console.Write("Deseja realizar depósito inicial? [S/N]: ");
+            string verificar = Console.ReadLine().ToLower();
+
+            while (verificar == "s")
             {
-                Console.Write("Entre com o valor de depósito inicial: "); 
-                deposito = double.Parse(Console.ReadLine());
-                pessoa.DepositarValor(deposito);
+                Console.Write("Digite o valor a ser depositado: R$ ");
+                double saldo = double.Parse(Console.ReadLine());
+                Console.WriteLine();
+
+                cliente.AddSaldo(saldo);
+
+                Console.WriteLine("Dados atualizados: ");
+                Console.WriteLine(cliente);
+
+                Console.Write("Deseja realizar mais algum depósito? [S/N]: ");
+                verificar = Console.ReadLine().ToLower();
             }
 
             Console.WriteLine();
-            Console.WriteLine(resposta);
-            Console.WriteLine(pessoa);
-            Console.WriteLine();
+            Console.Write("Deseja realizar um saque? [S/N]: ");
+            string verificarSaque = Console.ReadLine().ToLower();
 
-            Console.WriteLine("Deseja fazer um depósito?");
-            Console.Write("(S/N): ");
-            depoRequest = Console.ReadLine().ToLower() ;
-
-            if (depoRequest == "s")
+            while (verificarSaque == "s")
             {
-                Console.Write("Entre com o valor do depósito: ");
-                deposito = double.Parse(Console.ReadLine());
-                pessoa.DepositarValor(deposito);
+                Console.Write("Digite o valor a ser sacado (existe uma taxa de R$ 5,00 a cada saque): R$ ");
+                double saldo = double.Parse(Console.ReadLine());
+
+                cliente.SacarSaldo(saldo);
+
+                Console.WriteLine("Dados atualizados: ");
+                Console.WriteLine(cliente);
+
+                Console.WriteLine("Deseja realizar outro saque? [S/N]: ");
+                verificarSaque = Console.ReadLine().ToLower();
             }
-            Console.WriteLine();
-            Console.WriteLine(resposta);
-            Console.WriteLine(pessoa);
-            Console.WriteLine();
 
-            Console.WriteLine("Deseja realizar um saque?");
-            Console.Write("(S/N): ");
-            depoRequest = Console.ReadLine().ToLower();
-
-            if (depoRequest == "s")
-            {
-                Console.Write("Entre com o valor do Saque: ");
-                deposito = double.Parse(Console.ReadLine());
-                pessoa.SacarValor(deposito);
-            }
             Console.WriteLine();
-            Console.WriteLine(resposta);
-            Console.WriteLine(pessoa);
-            Console.WriteLine();
-
+            Console.WriteLine($"obrigado por utilizar o nosso sistema, {cliente.Nome}!");
         }
     }
 }
