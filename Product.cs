@@ -7,42 +7,93 @@ using System.Globalization;
 
 namespace Ex032
 {    
-    class Product
+    class Cliente
     {
-        private double taxa = 5.0;
+        private string _nome;
+        private int _numeroConta;
+        public double Saldo { get; private set; }
 
-        private double _saldo;
-        public int Conta { get; private set; } 
-        public string Nome { get; private set; }
-
-        public int AdicionarConta(int conta)
+        public Cliente()
         {
-            return Conta = conta;
+
         }
 
-        public void AdicionarNome(string nome)
+        public Cliente(int numeroConta, string nome)
         {
-            Nome = nome;
+            _numeroConta = numeroConta;
+            _nome = nome;
         }
 
-        public void DepositarValor(double valor)
-        {       
-            _saldo += valor;
+        public string Nome
+        {
+            get
+            {
+                return _nome;
+            }
+            set
+            {
+                if (value != null && value.Length > 1)
+                {
+                    _nome = value;
+                }
+                else
+                {
+                    Console.WriteLine("Nome inválido");
+                }
+            }
         }
 
-        public void SacarValor(double valor)
-        { 
-            _saldo = (_saldo - valor) - taxa;
+        //funçao para add numero a conta
+        public int NumeroConta
+        {
+            get
+            {
+                return _numeroConta;
+            }
+        }
+
+        public int AddConta(int valor)
+        {
+
+            if (valor >= 0)
+            {
+                _numeroConta = valor;
+                return _numeroConta;
+            }
+            else
+            {
+                Console.WriteLine("Numero inválido");
+                return 0;
+            }
+
+        }
+        //funções para mexer no valor da conta
+        public void AddSaldo(double valor)
+        {
+            Saldo += valor;
+        }
+
+        public void SacarSaldo(double valor)
+        {
+            if ((Saldo - valor) >= 0 && Saldo > 0)
+            {
+                Saldo = (Saldo - valor) - 5;
+            }
+            else
+            {
+                Console.WriteLine("Operação inválida!");
+            }
         }
 
         public override string ToString()
         {
-            return "Conta: "
-                + Conta
-                + ", Títular: "
-                + Nome
-                + ", Saldo: "
-                + _saldo.ToString("F2", CultureInfo.InvariantCulture);
+            return
+                "Conta: "
+                + _numeroConta
+                + " Titular: "
+                + _nome
+                + " Saldo Atual: R$ "
+                + Saldo.ToString("F2");
         }
     }
 }
